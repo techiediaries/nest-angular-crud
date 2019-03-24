@@ -1,0 +1,90 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Contacts</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Phone </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef> City </th>
+        <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button  mat-raised-button (click)="deleteContact(element.id)" color="secondary">Delete Contact</button>
+            <button  mat-raised-button (click)="selectContact(element)" color="secondary">Select Contact</button>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Create a Contact</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #f ="ngForm" class="mat-elevation-z8" style="width: 100%; padding: 5px;">
+
+      <mat-form-field>
+        <input matInput placeholder="Name" name="name" [(ngModel)] = "contact.name" required>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Title" name="title" [(ngModel)] = "contact.title" required>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Email" name="email" [(ngModel)] = "contact.email" required>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Phone" name="phone" [(ngModel)] = "contact.phone" required>
+      </mat-form-field>
+      <mat-form-field>
+          <textarea  placeholder="Address" name="address" [(ngModel)] = "contact.address" matInput></textarea>      
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="City" name="city" [(ngModel)] = "contact.city" required>
+      </mat-form-field>
+      
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions>
+      <button  mat-raised-button *ngIf="!contact.id" (click)="createContact(f)" color="primary">Save Contact</button>
+      <button  mat-raised-button *ngIf="contact.id" (click)="updateContact(f)" color="primary">Update Contact</button>
+      <button  mat-raised-button (click)="newContact()" color="primary">New..</button>
+      
+  </mat-card-actions>
+</mat-card>
